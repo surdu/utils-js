@@ -4,3 +4,35 @@ if (!String.prototype.insertAt)
       return this.substr(0, index) + string + this.substr(index);
     };
 }
+
+if (!String.prototype.matchAll)
+{
+  String.prototype.matchAll = function (re) {
+    var result = [];
+
+    if (!re.global)
+    {
+      mods = "g";
+
+      if (re.ignoreCase)
+      {
+        mods += "i";
+      }
+
+      if (re.multiline)
+      {
+        mods += "m";
+      }
+
+      re = RegExp(re.source, mods);
+    }
+
+    do {
+      var match = re.exec(this);
+      if (match)
+        result.push(match[0]);
+    } while (match);
+
+    return result;
+  }
+}
