@@ -13,26 +13,43 @@ if (window.jQuery)
     };
 }
 
-if (!RegExp.prototype.getAllMatches)
+if (!String.prototype.insertAt)
 {
-  RegExp.prototype.getAllMatches = function (string) {
+    String.prototype.insertAt = function(index, string) {
+      return this.substr(0, index) + string + this.substr(index);
+    };
+}
+
+if (!String.prototype.matchAll)
+{
+  String.prototype.matchAll = function (re) {
     var result = [];
 
+    if (!re.global)
+    {
+      mods = "g";
+
+      if (re.ignoreCase)
+      {
+        mods += "i";
+      }
+
+      if (re.multiline)
+      {
+        mods += "m";
+      }
+
+      re = RegExp(re.source, mods);
+    }
+
     do {
-      var match = this.exec(string);
+      var match = re.exec(this);
       if (match)
         result.push(match[0]);
     } while (match);
 
     return result;
   }
-}
-
-if (!String.prototype.insertAt)
-{
-    String.prototype.insertAt = function(index, string) {
-      return this.substr(0, index) + string + this.substr(index);
-    };
 }
 
 function Utils()
@@ -44,14 +61,6 @@ Utils.prototype = {
   proxy: function (fn, context) {
     return function () {
       fn.apply(context, arguments);
-    }
-  },
-
-  // Adds a self property in the context where the function 'fn' will be called
-  addSelf: function (fn, self) {
-    return function () {
-      this.self = self;
-      fn.apply(this, arguments);
     }
   }
 };
