@@ -10,3 +10,12 @@ Utils.prototype = {
     }
   }
 };
+
+if (document)
+{
+  var utils = new Utils();
+}
+else
+{
+  module.exports = new Utils();
+}

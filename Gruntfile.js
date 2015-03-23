@@ -3,45 +3,44 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON("package.json"),
 
     concat: {
-      vanillaJS: {
-        src: ["src/*.js"],
+      dist: {
+        src: ["src/node-fillers.js", "src/*.js"],
         dest: "dist/utils.js"
-      },
-
-      nodeJS: {
-        src: [
-          "src/*.js",
-          "!src/extensions-jquery.js"
-        ],
-        dest: "dist/utils-node.js"
-      },
+      }
     },
 
-    file_append: {
-      vanillaJS: {
-        files: [
-          {
-            append: "\nvar utils = new Utils();",
-            input: "dist/utils.js"
-          }
-        ]
+    uglify: {
+      options: {
+        banner: '/* <%= pkg.name %> - v<%= pkg.version %> - ' +
+        '<%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
       },
-
-      nodeJS: {
-        files: [
-          {
-            append: "\nmodule.exports = new Utils();",
-            input: "dist/utils-node.js"
-          }
-        ]
-      },
+      dist: {
+        files: {
+          'dist/utils.min.js': ["dist/utils.js"]
+        }
+      }
     },
 
     jasmine: {
-      src: "src/*.js",
+      src: "dist/utils.min.js",
       options: {
-        specs: "specs/*-spec.js",
+        specs: [
+          "specs/*-spec.js",
+          "!specs/*node-spec.js",
+        ],
         vendor: "http://code.jquery.com/jquery-2.1.3.min.js"
+      }
+    },
+
+    jasmine_nodejs: {
+      options: {
+        specNameSuffix: 'node-spec.js',
+      },
+
+      dist: {
+        specs:[
+          "specs/**-node-spec.js"
+        ]
       }
     },
 
@@ -55,10 +54,11 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks("grunt-contrib-concat");
-  grunt.loadNpmTasks("grunt-file-append");
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-jasmine-nodejs');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask("default", ["concat", "file_append"]);
-  grunt.registerTask("test", ["jasmine"]);
+  grunt.registerTask("default", ["concat", "uglify"]);
+  grunt.registerTask("test", ["default", "jasmine_nodejs", "jasmine"]);
 };
