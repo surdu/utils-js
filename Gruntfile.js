@@ -4,7 +4,10 @@ module.exports = function(grunt) {
 
     concat: {
       dist: {
-        src: ["src/node-fillers.js", "src/*.js"],
+        src: [
+          "src/extensions-core.js",
+          "src/*.js"
+        ],
         dest: "dist/utils.js"
       }
     },
