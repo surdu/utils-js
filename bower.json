@@ -1,0 +1,22 @@
+{
+  "name": "utils-js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/surdu/utils-js",
+  "authors": [
+    "Surdu Nicolae"
+  ],
+  "description": "A collection of usefull little JavaScript utils",
+  "main": "dist/utils.min.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
