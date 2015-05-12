@@ -1,6 +1,6 @@
 {
   "name": "utils.js",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A collection of usefull little JavaScript utils",
   "scripts": {
     "test": "grunt test"
