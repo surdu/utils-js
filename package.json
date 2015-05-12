@@ -1,5 +1,5 @@
 {
-  "name": "utils.js",
+  "name": "utils-js",
   "version": "0.0.0",
   "description": "A collection of usefull little JavaScript utils",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/surdu/utils.js"
+    "url": "https://github.com/surdu/utils-js"
   },
   "author": "Surdu Nicolae",
   "license": "MIT",
