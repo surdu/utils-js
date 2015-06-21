@@ -1,38 +1,46 @@
-if (!String.prototype.insertAt)
-{
-    String.prototype.insertAt = function(index, string) {
-      return this.substr(0, index) + string + this.substr(index);
-    };
-}
+(function() {
+	'use strict';
 
-if (!String.prototype.matchAll)
-{
-  String.prototype.matchAll = function (re) {
-    var result = [];
+	if (!String.prototype.insertAt)
+	{
+			String.prototype.insertAt = function(index, string) {
+				return this.substr(0, index) + string + this.substr(index);
+			};
+	}
 
-    if (!re.global)
-    {
-      mods = "g";
+	if (!String.prototype.matchAll)
+	{
+		String.prototype.matchAll = function (re) {
+			var result = [];
+      var mods;
+      var match;
 
-      if (re.ignoreCase)
-      {
-        mods += "i";
-      }
+			if (!re.global)
+			{
+				mods = "g";
 
-      if (re.multiline)
-      {
-        mods += "m";
-      }
+				if (re.ignoreCase)
+				{
+					mods += "i";
+				}
 
-      re = RegExp(re.source, mods);
-    }
+				if (re.multiline)
+				{
+					mods += "m";
+				}
 
-    do {
-      var match = re.exec(this);
-      if (match)
-        result.push(match[0]);
-    } while (match);
+				re = new RegExp(re.source, mods);
+			}
 
-    return result;
-  }
-}
+			do {
+				match = re.exec(this);
+				if (match) {
+          result.push(match[0]);
+        }
+			} while (match);
+
+			return result;
+		};
+	}
+
+}());

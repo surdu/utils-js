@@ -1,67 +1,74 @@
 module.exports = function(grunt) {
-  grunt.initConfig({
-    pkg: grunt.file.readJSON("package.json"),
+  "use strict";
 
-    concat: {
-      dist: {
-        src: [
-          "src/extensions-core.js",
-          "src/*.js"
-        ],
-        dest: "dist/utils.js"
-      }
-    },
+	grunt.initConfig({
+		pkg: grunt.file.readJSON("package.json"),
 
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
-      },
-      dist: {
-        files: {
-          'dist/utils.min.js': ["dist/utils.js"]
-        }
-      }
-    },
+		concat: {
+			dist: {
+				src: [
+					"src/extensions-core.js",
+					"src/*.js"
+				],
+				dest: "dist/utils.js"
+			}
+		},
 
-    jasmine: {
-      src: "dist/utils.min.js",
-      options: {
-        specs: [
-          "specs/*-spec.js",
-          "!specs/*node-spec.js",
-        ],
-        vendor: "http://code.jquery.com/jquery-2.1.3.min.js"
-      }
-    },
+		uglify: {
+			options: {
+				banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+				'<%= grunt.template.today("yyyy-mm-dd") %> */\n\n',
+			},
+			dist: {
+				files: {
+					'dist/utils.min.js': ["dist/utils.js"]
+				}
+			}
+		},
 
-    jasmine_nodejs: {
-      options: {
-        specNameSuffix: 'node-spec.js',
-      },
+		jasmine: {
+			src: "dist/utils.min.js",
+			options: {
+				specs: [
+					"specs/*-spec.js",
+					"!specs/*node-spec.js",
+				],
+				vendor: "http://code.jquery.com/jquery-2.1.3.min.js"
+			}
+		},
 
-      dist: {
-        specs:[
-          "specs/**-node-spec.js"
-        ]
-      }
-    },
+		jasmine_nodejs: {
+			options: {
+				specNameSuffix: 'node-spec.js',
+			},
 
-    watch: {
-      files: ["src/*.js", "specs/*-spec.js"],
-      tasks: "test",
-      options: {
-        debounceDelay: 1000,
-      }
-    }
-  });
+			dist: {
+				specs:[
+					"specs/**-node-spec.js"
+				]
+			}
+		},
 
-  grunt.loadNpmTasks("grunt-contrib-concat");
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-jasmine-nodejs');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+		watch: {
+			files: ["src/*.js", "specs/*-spec.js"],
+			tasks: "test",
+			options: {
+				debounceDelay: 1000,
+			}
+		},
 
-  grunt.registerTask("default", ["concat", "uglify"]);
-  grunt.registerTask("test", ["default", "jasmine_nodejs", "jasmine"]);
+		jshint: {
+			all: ['Gruntfile.js', 'src/**/*.js', 'specs/**/*.js']
+		}
+	});
+
+	grunt.loadNpmTasks("grunt-contrib-concat");
+	grunt.loadNpmTasks('grunt-contrib-jasmine');
+	grunt.loadNpmTasks('grunt-jasmine-nodejs');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+
+	grunt.registerTask("default", ["concat", "uglify"]);
+	grunt.registerTask("test", ["default", "jshint", "jasmine_nodejs", "jasmine"]);
 };

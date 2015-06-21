@@ -1,7 +1,12 @@
-describe("Utils", function () {
-  it("should work in node.js", function () {
-    var utils = require("../dist/utils.js");
+(function() {
+	'use strict';
 
-    expect(utils).toBeDefined();
-  })
-})
+	describe("Utils", function () {
+		it("should work in node.js", function () {
+			var utils = require("../dist/utils.js");
+
+			expect(utils).toBeDefined();
+		});
+	});
+
+}());

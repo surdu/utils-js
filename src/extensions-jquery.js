@@ -1,14 +1,19 @@
-if (window.jQuery)
-{
-    jQuery.fn.enable = function () {
-        $.each(this, function (index, el) {
-            $(el).removeAttr('disabled');
-        });
-    };
+(function() {
+	'use strict';
 
-    jQuery.fn.disable = function () {
-        $.each(this, function (index, el) {
-            $(el).attr('disabled', 'disabled');
-        });
-    };
-}
+	if (window.jQuery)
+	{
+			jQuery.fn.enable = function () {
+					jQuery.each(this, function (index, el) {
+							jQuery(el).removeAttr('disabled');
+					});
+			};
+
+			jQuery.fn.disable = function () {
+					jQuery.each(this, function (index, el) {
+							jQuery(el).attr('disabled', 'disabled');
+					});
+			};
+	}	
+
+}());

@@ -1,18 +1,20 @@
+//jshint -W020
+
 /**
-  used to fill in window and document
-  in case node.js includes the library
-  in order to ease the checks in the
-  rest of the library
+	used to fill in window and document
+	in case node.js includes the library
+	in order to ease the checks in the
+	rest of the library
 */
 
 if (typeof window === "undefined")
 {
-  window = {};
+	window = {};
 }
 
 if (typeof document === "undefined")
 {
-  document = {};
+	document = {};
 }
 
 /**
@@ -20,96 +22,119 @@ if (typeof document === "undefined")
  * unless dev tools are open, and IE doesn't define console.debug
  */
 (function() {
-  if (!window.console) {
-    window.console = {};
-  }
-  // union of Chrome, FF, IE, and Safari console methods
-  var m = [
-    "log", "info", "warn", "error", "debug", "trace", "dir", "group",
-    "groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
-    "dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
-  ];
-  // define undefined methods as noops to prevent errors
-  for (var i = 0; i < m.length; i++) {
-    if (!window.console[m[i]]) {
-      window.console[m[i]] = function() {};
-    }
-  }
-})();
+	"use strict";
+	
+	if (!window.console) {
+		window.console = {};
+	}
+	// union of Chrome, FF, IE, and Safari console methods
+	var m = [
+		"log", "info", "warn", "error", "debug", "trace", "dir", "group",
+		"groupCollapsed", "groupEnd", "time", "timeEnd", "profile", "profileEnd",
+		"dirxml", "assert", "count", "markTimeline", "timeStamp", "clear"
+	];
+	// define undefined methods as noops to prevent errors
+	for (var i = 0; i < m.length; i++) {
+		if (!window.console[m[i]]) {
+			window.console[m[i]] = function() {};
+		}
+	}
+}());
 
-if (window.jQuery)
-{
-    jQuery.fn.enable = function () {
-        $.each(this, function (index, el) {
-            $(el).removeAttr('disabled');
-        });
-    };
+(function() {
+	'use strict';
 
-    jQuery.fn.disable = function () {
-        $.each(this, function (index, el) {
-            $(el).attr('disabled', 'disabled');
-        });
-    };
-}
+	if (window.jQuery)
+	{
+			jQuery.fn.enable = function () {
+					jQuery.each(this, function (index, el) {
+							jQuery(el).removeAttr('disabled');
+					});
+			};
 
-if (!String.prototype.insertAt)
-{
-    String.prototype.insertAt = function(index, string) {
-      return this.substr(0, index) + string + this.substr(index);
-    };
-}
+			jQuery.fn.disable = function () {
+					jQuery.each(this, function (index, el) {
+							jQuery(el).attr('disabled', 'disabled');
+					});
+			};
+	}	
 
-if (!String.prototype.matchAll)
-{
-  String.prototype.matchAll = function (re) {
-    var result = [];
+}());
 
-    if (!re.global)
-    {
-      mods = "g";
+(function() {
+	'use strict';
 
-      if (re.ignoreCase)
-      {
-        mods += "i";
-      }
+	if (!String.prototype.insertAt)
+	{
+			String.prototype.insertAt = function(index, string) {
+				return this.substr(0, index) + string + this.substr(index);
+			};
+	}
 
-      if (re.multiline)
-      {
-        mods += "m";
-      }
+	if (!String.prototype.matchAll)
+	{
+		String.prototype.matchAll = function (re) {
+			var result = [];
+      var mods;
+      var match;
 
-      re = RegExp(re.source, mods);
-    }
+			if (!re.global)
+			{
+				mods = "g";
 
-    do {
-      var match = re.exec(this);
-      if (match)
-        result.push(match[0]);
-    } while (match);
+				if (re.ignoreCase)
+				{
+					mods += "i";
+				}
 
-    return result;
-  }
-}
+				if (re.multiline)
+				{
+					mods += "m";
+				}
 
-function Utils(){}
+				re = new RegExp(re.source, mods);
+			}
 
-Utils.prototype = {
-  proxy: function (fn, context) {
-    return function () {
-      fn.apply(context, arguments);
-    }
-  },
+			do {
+				match = re.exec(this);
+				if (match) {
+          result.push(match[0]);
+        }
+			} while (match);
 
-  clone: function (obj) {
-    return JSON.parse(JSON.stringify(obj));
-  }
-};
+			return result;
+		};
+	}
 
-if (document)
-{
-  var utils = new Utils();
-}
-else
-{
-  module.exports = new Utils();
-}
+}());
+
+(function() {
+	'use strict';
+
+	function Utils(){}
+
+	Utils.prototype = {
+		proxy: function (fn, context) {
+			return function () {
+				fn.apply(context, arguments);
+			};
+		},
+
+		clone: function (obj) {
+			return JSON.parse(JSON.stringify(obj));
+		}
+	};
+
+	window.Utils = Utils;
+
+	if (window)
+	{
+		window.utils = new Utils();
+	}
+	else
+	{
+		module.exports = new Utils();
+	}
+
+
+}());
