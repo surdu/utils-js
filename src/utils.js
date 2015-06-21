@@ -17,13 +17,13 @@
 
 	window.Utils = Utils;
 
-	if (window)
+	if (typeof module !== "undefined" && module.exports)
 	{
-		window.utils = new Utils();
+		module.exports = new Utils();
 	}
 	else
 	{
-		module.exports = new Utils();
+		window.utils = new Utils();
 	}
 
 

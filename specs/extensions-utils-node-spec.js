@@ -3,9 +3,9 @@
 
 	describe("Utils", function () {
 		it("should work in node.js", function () {
-			var utils = require("../dist/utils.js");
+			var utils = require("../");
 
-			expect(utils).toBeDefined();
+			expect(utils.clone).toBeDefined();
 		});
 	});
 

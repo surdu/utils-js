@@ -2,6 +2,7 @@
   "name": "utils-js",
   "version": "0.1.0",
   "description": "A collection of usefull little JavaScript utils",
+  "main": "dist/utils.js",
   "scripts": {
     "test": "grunt test"
   },
