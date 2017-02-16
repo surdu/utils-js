@@ -2,4 +2,4 @@
 
 This is a collection of utils that I use in JS.
 
-More details comming soon.
+Until I have the time for a proper documentation, [the tests in specs folder](specs) should be pretty helpful.
