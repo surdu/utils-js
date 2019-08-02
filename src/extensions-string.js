@@ -3,17 +3,17 @@
 
 	if (!String.prototype.insertAt)
 	{
-			String.prototype.insertAt = function(index, string) {
-				return this.substr(0, index) + string + this.substr(index);
-			};
+		String.prototype.insertAt = function(index, string) {
+			return this.substr(0, index) + string + this.substr(index);
+		};
 	}
 
 	if (!String.prototype.matchAll)
 	{
 		String.prototype.matchAll = function (re) {
 			var result = [];
-      var mods;
-      var match;
+			var mods;
+			var match;
 
 			if (!re.global)
 			{
@@ -35,12 +35,21 @@
 			do {
 				match = re.exec(this);
 				if (match) {
-          result.push(match[0]);
-        }
+					result.push(match[0]);
+				}
 			} while (match);
 
 			return result;
 		};
+	}
+
+	String.prototype.trimChar = function (char) {
+		if (!char) {
+			return this.trim();
+		}
+
+		var regexp = new RegExp(`^${char}+|${char}+$`, "g");
+		return str.replace(regexp, "");
 	}
 
 }());
