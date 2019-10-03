@@ -1,12 +1,12 @@
 describe("Utils", function () {
-	var utils;
+	let utils;
 
 	beforeAll(function () {
 		utils = new Utils();
 	});
 
 	it("should proxy function calls", function (done) {
-		var obj = {
+		const obj = {
 			test:	"I'm here",
 
 			check: function () {
@@ -19,7 +19,7 @@ describe("Utils", function () {
 	});
 
 	it("should deep clone objects", function () {
-		var obj = {
+		const obj = {
 			level1: {
 				someProp: "mama",
 				level2: {
@@ -29,7 +29,7 @@ describe("Utils", function () {
 			someProp: "sister"
 		};
 
-		var obj2 = utils.clone(obj);
+		const obj2 = utils.clone(obj);
 
 		expect(obj2).not.toBe(obj);
 		expect(obj2.someProp).toEqual("sister");

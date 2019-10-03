@@ -1,7 +1,0 @@
-{
-	"extends": "../.jshintrc",
-	"jasmine": true,
-	"globals": {
-		"Utils": true
-	}
-}

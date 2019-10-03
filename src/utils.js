@@ -1,7 +1,5 @@
 (function() {
-	'use strict';
-
-	function Utils(){}
+	function Utils() {}
 
 	Utils.prototype = {
 		proxy: function (fn, context) {
@@ -17,14 +15,10 @@
 
 	window.Utils = Utils;
 
-	if (typeof module !== "undefined" && module.exports)
-	{
+	if (typeof module !== "undefined" && module.exports) {
 		module.exports = new Utils();
 	}
-	else
-	{
+	else {
 		window.utils = new Utils();
 	}
-
-
 }());
