@@ -1,8 +1,5 @@
 (function() {
-	'use strict';
-
 	describe("String", function () {
-
 		it("should insert another string at a specified position", function () {
 			expect("This is a test".insertAt(10, "successful ")).toEqual("This is a successful test");
 		});
@@ -16,7 +13,5 @@
 			// The regexp will match words that start with the letter "t"
 			expect("This is a test".matchAll(/T\w+/i)).toEqual(["This", "test"]);
 		});
-
-	});	
-
+	});
 }());

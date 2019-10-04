@@ -1,31 +1,24 @@
-(function() {
-	'use strict';
-
-	if (!String.prototype.insertAt)
-	{
+export default function extendString() {
+	if (!String.prototype.insertAt) {
 		String.prototype.insertAt = function(index, string) {
 			return this.substr(0, index) + string + this.substr(index);
 		};
 	}
 
-	if (!String.prototype.matchAll)
-	{
+	if (!String.prototype.matchAll) {
 		String.prototype.matchAll = function (re) {
-			var result = [];
-			var mods;
-			var match;
+			const result = [];
+			let mods;
+			let match;
 
-			if (!re.global)
-			{
+			if (!re.global) {
 				mods = "g";
 
-				if (re.ignoreCase)
-				{
+				if (re.ignoreCase) {
 					mods += "i";
 				}
 
-				if (re.multiline)
-				{
+				if (re.multiline) {
 					mods += "m";
 				}
 
@@ -48,8 +41,7 @@
 			return this.trim();
 		}
 
-		var regexp = new RegExp(`^${char}+|${char}+$`, "g");
-		return str.replace(regexp, "");
-	}
-
-}());
+		const regexp = new RegExp(`^${char}+|${char}+$`, "g");
+		return this.replace(regexp, "");
+	};
+}

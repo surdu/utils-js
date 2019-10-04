@@ -1,11 +1,9 @@
 (function() {
-	'use strict';
-
 	describe("jQuery", function () {
-		var el;
+		let el;
 
 		beforeAll(function () {
-			el = jQuery("div");
+			el = window.jQuery("div");
 		});
 
 		it("should disable elements", function () {
@@ -18,5 +16,4 @@
 			expect(el.attr("disabled")).toEqual(undefined);
 		});
 	});
-
 }());

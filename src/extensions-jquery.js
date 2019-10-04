@@ -1,19 +1,15 @@
-(function() {
-	'use strict';
+export default function extendJQ() {
+	if (window.jQuery) {
+		window.jQuery.fn.enable = function () {
+			window.jQuery.each(this, function (index, el) {
+				window.jQuery(el).removeAttr('disabled');
+			});
+		};
 
-	if (window.jQuery)
-	{
-			jQuery.fn.enable = function () {
-					jQuery.each(this, function (index, el) {
-							jQuery(el).removeAttr('disabled');
-					});
-			};
-
-			jQuery.fn.disable = function () {
-					jQuery.each(this, function (index, el) {
-							jQuery(el).attr('disabled', 'disabled');
-					});
-			};
-	}	
-
-}());
+		window.jQuery.fn.disable = function () {
+			window.jQuery.each(this, function (index, el) {
+				window.jQuery(el).attr('disabled', 'disabled');
+			});
+		};
+	}
+}
