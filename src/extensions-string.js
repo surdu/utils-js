@@ -1,4 +1,4 @@
-(function() {
+export default function extendString() {
 	if (!String.prototype.insertAt) {
 		String.prototype.insertAt = function(index, string) {
 			return this.substr(0, index) + string + this.substr(index);
@@ -44,4 +44,4 @@
 		const regexp = new RegExp(`^${char}+|${char}+$`, "g");
 		return this.replace(regexp, "");
 	};
-}());
+}

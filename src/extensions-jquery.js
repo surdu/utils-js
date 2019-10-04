@@ -1,4 +1,4 @@
-(function() {
+export default function extendJQ() {
 	if (window.jQuery) {
 		window.jQuery.fn.enable = function () {
 			window.jQuery.each(this, function (index, el) {
@@ -12,4 +12,4 @@
 			});
 		};
 	}
-}());
+}
